@@ -1,0 +1,56 @@
+.cart-page {
+  width: 70%;
+  margin: 50px auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+}
+
+.cart-page h1 {
+  color: #2c3e50; /* A deep navy blue */
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e4b3b3;
+  padding: 20px 0;
+}
+
+.cart-item-img {
+  width: 80px;
+}
+
+.cart-item-details {
+  flex: 1;
+  margin-left: 30px;
+}
+
+.remove-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.cart-summary {
+  margin-top: 30px;
+  text-align: right;
+  border-top: 2px solid #333;
+  padding-top: 20px;
+}
+
+.checkout-btn {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 18px;
+  border-radius: 5px;
+  margin-top: 15px;
+  cursor: pointer;
+}
