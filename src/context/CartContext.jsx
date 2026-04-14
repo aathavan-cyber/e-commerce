@@ -4,26 +4,22 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+  const [user, setUser] = useState(null); // Track logged-in user
 
-  const addToCart = (product) => {
-    setCart((prev) => [...prev, product]);
+  const addToCart = (product) => setCart((prev) => [...prev, product]);
+  
+  const removeFromCart = (productId) => {
+    setCart((prev) => prev.filter(item => item.id !== productId));
   };
 
-  const removeFromCart = (productId) => {
-    // Removes only one instance of the product
-    setCart((prev) => {
-      const index = prev.findIndex(item => item.id === productId);
-      if (index !== -1) {
-        const newCart = [...prev];
-        newCart.splice(index, 1);
-        return newCart;
-      }
-      return prev;
-    });
+  const login = (userData) => setUser(userData);
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('token');
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, user, login, logout }}>
       {children}
     </CartContext.Provider>
   );
