@@ -1,29 +1,77 @@
 import { useState } from 'react';
 import { useCart } from '../../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 import './Checkout.css';
 
 const Checkout = () => {
-  const { cart } = useCart();
+  const { cart, clearCart } = useCart(); 
   const [isPaid, setIsPaid] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('upi');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  // Calculate total price
   const total = cart.reduce((acc, item) => acc + item.price, 0);
 
   const handlePayment = (e) => {
     e.preventDefault();
-    // In a real app, you'd call an API here. 
-    // For now, we just flip the state to show success.
+    setError('');
+
+    const formData = new FormData(e.target);
+    
+    if (paymentMethod === 'upi') {
+      const upi = formData.get('upi-id');
+      if (!upi.includes('@')) {
+        setError('Invalid UPI ID. Must contain @ (e.g., user@bank)');
+        return;
+      }
+    } else {
+      const cardNum = formData.get('card-num');
+      const expiry = formData.get('expiry');
+      const cvv = formData.get('cvv');
+
+      // 1. Card Length
+      if (cardNum.replace(/\s/g, '').length < 16) {
+        setError('Card number must be 16 digits');
+        return;
+      }
+
+      // 2. Expiry Format (MM/YY)
+      const expiryRegex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
+      if (!expiryRegex.test(expiry)) {
+        setError('Expiry must be valid MM/YY');
+        return;
+      }
+
+      // 3. Expiry Date Logic
+      const [month, year] = expiry.split('/').map(num => parseInt(num));
+      const now = new Date();
+      const currentMonth = now.getMonth() + 1;
+      const currentYear = parseInt(now.getFullYear().toString().slice(-2));
+
+      if (year < currentYear || (year === currentYear && month < currentMonth)) {
+        setError('This card has expired');
+        return;
+      }
+
+      // 4. CVV
+      if (cvv.length < 3) {
+        setError('CVV must be 3 digits');
+        return;
+      }
+    }
+
     setIsPaid(true);
+    clearCart();
   };
 
   if (isPaid) {
     return (
       <div className="checkout-container">
         <div className="success-card">
+          <div className="success-icon">✅</div>
           <h1>Payment Success!</h1>
-          <p>Your order for ${total.toFixed(2)} has been placed.</p>
-          <button onClick={() => window.location.href = '/'}>Back to Shopping</button>
+          <p>Thank you for your purchase of <strong>${total.toFixed(2)}</strong>.</p>
+          <button className="home-btn" onClick={() => navigate('/')}>Continue Shopping</button>
         </div>
       </div>
     );
@@ -33,49 +81,61 @@ const Checkout = () => {
     <div className="checkout-container">
       <form className="checkout-form" onSubmit={handlePayment}>
         <h2>Checkout</h2>
-        <p className="order-total">Total Amount: <strong>${total.toFixed(2)}</strong></p>
         
-        <div className="payment-options">
-          <label>
-            <input 
-              type="radio" 
-              name="pay" 
-              value="upi" 
-              checked={paymentMethod === 'upi'} 
-              onChange={(e) => setPaymentMethod(e.target.value)} 
-            /> UPI (GPay, PhonePe)
+        {error && <div className="validation-error">{error}</div>}
+
+        <div className="order-summary">
+          <span>Order Total:</span>
+          <strong>${total.toFixed(2)}</strong>
+        </div>
+
+        <div className="payment-selector">
+          <label className={paymentMethod === 'upi' ? 'active' : ''}>
+            <input type="radio" name="pay" value="upi" checked={paymentMethod === 'upi'} onChange={() => setPaymentMethod('upi')} /> 
+            UPI (GPay/PhonePe)
           </label>
-          <label>
-            <input 
-              type="radio" 
-              name="pay" 
-              value="credit" 
-              onChange={(e) => setPaymentMethod(e.target.value)} 
-            /> Credit Card
-          </label>
-          <label>
-            <input 
-              type="radio" 
-              name="pay" 
-              value="debit" 
-              onChange={(e) => setPaymentMethod(e.target.value)} 
-            /> Debit Card
+          <label className={paymentMethod === 'card' ? 'active' : ''}>
+            <input type="radio" name="pay" value="card" checked={paymentMethod === 'card'} onChange={() => setPaymentMethod('card')} /> 
+            Debit/Credit Card
           </label>
         </div>
 
         {paymentMethod === 'upi' ? (
-          <input type="text" placeholder="Enter UPI ID (e.g., user@okaxis)" required />
+          <div className="input-group">
+            <label>UPI ID</label>
+            <input name="upi-id" type="text" placeholder="username@bank" required />
+          </div>
         ) : (
           <div className="card-fields">
-            <input type="text" placeholder="Card Number" required />
-            <div className="expiry-cvv">
-              <input type="text" placeholder="MM/YY" required />
-              <input type="password" placeholder="CVV" required />
+            <div className="input-group">
+              <label>Card Number</label>
+              <input name="card-num" type="text" placeholder="1234 5678 9101 1121" maxLength="16" required />
+            </div>
+            <div className="row">
+              <div className="input-group">
+                <label>Expiry Date</label>
+                <input 
+                  name="expiry" 
+                  type="text" 
+                  placeholder="MM/YY" 
+                  maxLength="5" 
+                  required 
+                  onChange={(e) => {
+                    let val = e.target.value.replace(/\D/g, '');
+                    if (val.length > 2) val = val.substring(0,2) + '/' + val.substring(2,4);
+                    e.target.value = val;
+                  }}
+                />
+              </div>
+              <div className="input-group">
+                <label>CVV</label>
+                <input name="cvv" type="password" placeholder="123" maxLength="3" required />
+              </div>
             </div>
           </div>
         )}
 
-        <button type="submit" className="pay-now-btn">Pay Now</button>
+        <button type="submit" className="pay-now-btn">Complete Payment</button>
       </form>
     </div>
   );

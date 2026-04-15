@@ -54,3 +54,29 @@
   margin-top: 15px;
   cursor: pointer;
 }
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 10px 0;
+}
+
+.quantity-controls button {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.quantity-controls button:hover {
+  background: #f0f0f0;
+}
+
+.quantity-controls span {
+  font-weight: bold;
+  font-size: 1.1rem;
+}

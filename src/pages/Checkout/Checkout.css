@@ -80,3 +80,18 @@ input[type="text"], input[type="password"] {
   border-radius: 5px;
   cursor: pointer;
 }
+
+.validation-error {
+  background-color: #fff0f0;
+  color: #e74c3c;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #e74c3c;
+  margin-bottom: 15px;
+  font-size: 14px;
+  text-align: center;
+}
+
+input:invalid:focus {
+  border-color: #e74c3c;
+}
