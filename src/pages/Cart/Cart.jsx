@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import './Cart.css';
 
@@ -22,7 +23,9 @@ const Cart = () => {
           ))}
           <div className="cart-summary">
             <h3>Subtotal: ${total.toFixed(2)}</h3>
-            <button className="checkout-btn">Proceed to Checkout</button>
+            <Link to="/checkout">
+  <button className="checkout-btn">Proceed to Checkout</button>
+</Link>
           </div>
         </div>
       )}

@@ -3,7 +3,8 @@ import { CartProvider, useCart } from './context/CartContext';
 import Navbar from './components/Navbar/Navbar';
 import Products from './pages/Products/Products';
 import Cart from './pages/Cart/Cart';
-import Login from './pages/Login/Login'; // Import Login
+import Login from './pages/Login/Login'; 
+import Checkout from './pages/Checkout/Checkout';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Products />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </Router>
     </CartProvider>
