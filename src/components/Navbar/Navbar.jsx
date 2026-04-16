@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext'; 
-import './Navbar.css';
+import './Navbar.scss';
 
 const Navbar = () => {
   const { cart, user, logout } = useCart();
@@ -9,7 +9,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="nav-logo">MiniAmazon</Link>
+      <Link to="/" className="nav-logo">Ecomm</Link>
       
       <div className="nav-links">
         {user ? (

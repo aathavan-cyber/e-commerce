@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { useCart } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
-import './Checkout.css';
+import './Checkout.scss';
 
 const Checkout = () => {
   const { cart, clearCart } = useCart(); 
   const [isPaid, setIsPaid] = useState(false);
+  const [paidAmount, setPaidAmount] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState('upi');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const total = cart.reduce((acc, item) => acc + item.price, 0);
+  const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
   const handlePayment = (e) => {
     e.preventDefault();
@@ -60,9 +61,10 @@ const Checkout = () => {
       }
     }
 
-    setIsPaid(true);
-    clearCart();
-  };
+      setPaidAmount(total);
+      setIsPaid(true);
+      clearCart();
+    };
 
   if (isPaid) {
     return (
@@ -70,7 +72,7 @@ const Checkout = () => {
         <div className="success-card">
           <div className="success-icon">✅</div>
           <h1>Payment Success!</h1>
-          <p>Thank you for your purchase of <strong>${total.toFixed(2)}</strong>.</p>
+          <p>Thank you for your purchase of <strong>${paidAmount.toFixed(2)}</strong>.</p>
           <button className="home-btn" onClick={() => navigate('/')}>Continue Shopping</button>
         </div>
       </div>

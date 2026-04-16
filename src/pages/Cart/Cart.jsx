@@ -1,6 +1,6 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
-import './Cart.css';
+import './Cart.scss';
 
 const Cart = () => {
   const { cart, user, updateQuantity, removeFromCart } = useCart();
@@ -10,12 +10,8 @@ const Cart = () => {
 
   const handleCheckoutClick = () => {
     if (cart.length === 0) return;
-
-    if (!user) {
-      navigate('/login'); 
-    } else {
-      navigate('/checkout');
-    }
+    // If not logged in, send to login, otherwise to checkout
+    user ? navigate('/checkout') : navigate('/login');
   };
 
   return (
@@ -24,8 +20,8 @@ const Cart = () => {
 
       {cart.length === 0 ? (
         <div className="empty-cart">
-          <p>Your cart is empty.</p>
-          <Link to="/">Go Shopping</Link>
+          <p>Your cart feels a bit light.</p>
+          <Link to="/" className="shop-link">Go Shopping</Link>
         </div>
       ) : (
         <div className="cart-content">
@@ -36,13 +32,13 @@ const Cart = () => {
                 
                 <div className="cart-item-details">
                   <h3>{item.title}</h3>
-                  <p className="item-price">${item.price}</p>
+                  <p className="item-price">${item.price.toFixed(2)}</p>
                   
-                  {}
                   <div className="quantity-controls">
                     <button 
                       className="qty-btn" 
                       onClick={() => updateQuantity(item.id, -1)}
+                      disabled={item.quantity <= 1}
                     >
                       -
                     </button>
@@ -70,25 +66,28 @@ const Cart = () => {
             ))}
           </div>
 
-          <div className="cart-summary">
-            <h3>Summary</h3>
+          <aside className="cart-summary">
+            <h3>Order Summary</h3>
             <div className="summary-row">
-              <span>Total Items:</span>
-              <span>{cart.reduce((acc, item) => acc + item.quantity, 0)}</span>
+              <span>Subtotal:</span>
+              <span>${totalPrice.toFixed(2)}</span>
+            </div>
+            <div className="summary-row">
+              <span>Shipping:</span>
+              <span>FREE</span>
             </div>
             <div className="summary-row total">
-              <span>Total Price:</span>
+              <span>Total:</span>
               <span>${totalPrice.toFixed(2)}</span>
             </div>
             
             <button 
               className="checkout-btn" 
               onClick={handleCheckoutClick}
-              disabled={cart.length === 0}
             >
-              {cart.length === 0 ? "Cart is Empty" : "Proceed to Checkout"}
+              Proceed to Checkout
             </button>
-          </div>
+          </aside>
         </div>
       )}
     </div>

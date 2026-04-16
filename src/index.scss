@@ -1,0 +1,35 @@
+@use './styles/variables' as *;
+
+:root {
+  // Use these for CSS variables that need to be accessed by JS or non-Sass files
+  --primary-color: #{$primary-color};
+  --accent-color: #{$accent-color};
+}
+
+html, body {
+  // Ensure the background is consistent even before React mounts
+  background-color: #f4f7f6;
+  margin: 0;
+  padding: 0;
+  
+  // Smooth scrolling makes the navigation feel more premium
+  scroll-behavior: smooth;
+}
+
+// Global scrollbar styling (optional, for a cleaner look)
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+  
+  &:hover {
+    background: #bbb;
+  }
+}
