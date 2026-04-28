@@ -1,0 +1,63 @@
+@use './styles/variables' as *;
+
+// 1. GLOBAL RESET
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: $bg-light;
+  color: $text-main;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+// 2. LAYOUT WRAPPERS
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; // Ensures the app always fills the screen
+}
+
+.main-content {
+  flex: 1; // This pushes the footer (if you add one) to the bottom
+  padding-bottom: 3rem; // Adds space at the bottom of every page
+}
+
+// 3. COMMON COMPONENTS (Reused across pages)
+button {
+  font-family: inherit;
+  transition: $transition;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// 4. UTILITY CLASSES
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  font-weight: bold;
+  color: $text-muted;
+}
+
+.success-card {
+  text-align: center;
+  background: $white;
+  padding: 3rem;
+  border-radius: $border-radius;
+  box-shadow: $shadow-md;
+}

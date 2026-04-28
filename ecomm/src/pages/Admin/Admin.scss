@@ -1,0 +1,162 @@
+@use "sass:color";
+@use '../../styles/variables' as *;
+
+.admin-page {
+  max-width: 1200px; // Slightly wider for tables
+  margin: 2rem auto;
+  padding: 0 2rem;
+
+  h2 {
+    font-size: 1.5rem;
+    color: $text-main;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+}
+
+.admin-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+// Section styling consistent with Cart Item List
+.admin-section {
+  background: $white;
+  border: 1px solid #eee;
+  border-radius: $border-radius;
+  box-shadow: $shadow-sm;
+  padding: 1.5rem;
+
+  h3 {
+    margin-bottom: 1.25rem;
+    color: $text-main;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+  }
+}
+
+// Form styling consistent with Cart buttons/inputs
+.admin-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  align-items: flex-end;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      font-size: 0.85rem;
+      color: $text-muted;
+      font-weight: 500;
+    }
+
+    input {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: $border-radius;
+      font-size: 0.95rem;
+      transition: $transition;
+
+      &:focus {
+        border-color: $accent-color;
+        outline: none;
+      }
+    }
+  }
+
+  .submit-btn {
+    background: $accent-color;
+    color: $primary-color;
+    border: 1px solid color.adjust($accent-color, $lightness: -10%);
+    padding: 10px 20px;
+    border-radius: $border-radius;
+    font-weight: 600;
+    cursor: pointer;
+    transition: $transition;
+    height: 42px; // Match input height
+
+    &:hover {
+      background: color.adjust($accent-color, $lightness: -5%);
+      box-shadow: $shadow-md;
+    }
+  }
+}
+
+// Table styling for product management
+.admin-table-container {
+  overflow-x: auto;
+
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+
+    th {
+      background: #fafafa;
+      text-align: left;
+      padding: 12px;
+      color: $text-muted;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-bottom: 2px solid #eee;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      color: $text-main;
+      vertical-align: middle;
+
+      .admin-thumb {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        border-radius: 4px;
+        background: #fdfdfd;
+      }
+    }
+
+    tr:hover {
+      background: #f9f9f9;
+    }
+  }
+}
+
+// Consistent with .remove-btn from Cart
+.delete-btn {
+  background: $error-color;
+  color: $white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: $border-radius;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    background: color.adjust($error-color, $lightness: -10%);
+  }
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+
+  &.pending {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+
+  &.completed {
+    background-color: #d4edda;
+    color: #155724;
+  }
+}

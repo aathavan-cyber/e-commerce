@@ -1,0 +1,114 @@
+@use "sass:color";
+@use '../../styles/variables' as *;
+
+.products-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  h2 {
+    font-size: 1.5rem;
+    color: $text-main;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+
+  .search-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    .search-input {
+      width: 100%;
+      max-width: 400px;
+      padding: 12px 16px;
+      border: 1px solid #ddd;
+      border-radius: $border-radius;
+      font-size: 1rem;
+      transition: $transition;
+      background: $white;
+
+      &:focus {
+        outline: none;
+        border-color: $accent-color;
+        box-shadow: 0 0 0 3px rgba($accent-color, 0.1);
+      }
+
+      &::placeholder {
+        color: $text-muted;
+      }
+    }
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 2rem;
+  }
+}
+
+.product-card {
+  background: $white;
+  border: 1px solid #eee;
+  border-radius: $border-radius;
+  padding: 1.5rem;
+  transition: $transition;
+  display: flex;
+  flex-direction: column;
+  box-shadow: $shadow-sm;
+
+  &:hover {
+    border-color: $accent-color;
+    box-shadow: $shadow-md;
+  }
+
+  .product-link {
+    text-decoration: none;
+    color: $text-main;
+    
+    .product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+    }
+
+    .product-title {
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
+      color: $text-main;
+      font-weight: 500;
+    }
+  }
+
+  .product-info {
+    margin-top: auto;
+
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #B12704;
+      margin-bottom: 1rem;
+    }
+
+    .add-to-cart-btn {
+      width: 100%;
+      background: $accent-color;
+      color: $primary-color;
+      border: 1px solid color.adjust($accent-color, $lightness: -10%);
+      padding: 10px;
+      border-radius: $border-radius;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: $transition;
+
+      &:hover {
+        background: color.adjust($accent-color, $lightness: -5%);
+        box-shadow: $shadow-md;
+      }
+    }
+  }
+}
