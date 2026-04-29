@@ -1,16 +1,76 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Quick Start Guide
 
-Currently, two official plugins are available:
+### 1. Prerequisites
+Ensure you have the following installed on your machine:
+* Node.js (v16 or higher)
+* MySQL Server
+* npm
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+### 2. Backend Setup
+1.  Navigate to the backend folder:
+    ```bash
+    cd ecomm-backend
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+3.  Configure Database Credentials:
+    * Open config/config.json.
+    * Update the username and password fields with your local MySQL credentials.
+4.  Initialize Database and Data:
+    Run the following command to automatically create the database, run migrations (tables), and seed initial data (products and test user):
+    ```bash
+    npm run setup
+    ```
+5.  Start the Server:
+    ```bash
+    npm start
+    ```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+### 3. Frontend Setup
+1.  Navigate to the frontend folder:
+    ```bash
+    cd ecomm
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+3.  Start the Application:
+    ```bash
+    npm start
+    ```
+    The app should now be running at http://localhost:3000.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Database Management (Sequelize)
+
+If you need to perform manual database operations, use these commands in the ecomm-backend folder:
+
+* Create Database: npx sequelize-cli db:create
+* Run Migrations: npx sequelize-cli db:migrate
+* Run Seeders: npx sequelize-cli db:seed:all
+* Reset Everything: npx sequelize-cli db:migrate:undo:all && npm run setup
+
+---
+
+## Test Credentials
+Once you have run the seeder, you can log in with the following account:
+* Email: admin@example.com
+* Password: password123
+
+---
+
+## Project Structure
+* /ecomm: React Frontend application.
+* /ecomm-backend: Node.js server with Sequelize ORM.
+    * /migrations: SQL table definitions.
+    * /seeders: Initial data for products and users.
+    * products.json: Source data for product seeding.

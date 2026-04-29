@@ -6,11 +6,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 1. Connection Pool
+// Connection Pool
 const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '12345678', 
+    password: 'password', 
     database: 'ecom_db',
     waitForConnections: true,
     connectionLimit: 10,
@@ -88,7 +88,6 @@ app.post('/api/login', (req, res) => {
         return res.status(400).json({ message: "Email and password are required" });
     }
 
-    // This query now correctly looks for 'email' column
     const sql = 'SELECT id, name, email FROM users WHERE email = ? AND password = ?';
     
     db.query(sql, [email, password], (err, results) => {
@@ -108,7 +107,7 @@ app.post('/api/login', (req, res) => {
 app.post('/api/orders', (req, res) => {
     const { user_id, total_amount, cartItems } = req.body;
 
-    // 1. Insert into 'orders' table
+    //  Insert into 'orders' table
     const orderSql = "INSERT INTO orders (user_id, total_amount) VALUES (?, ?)";
     
     db.query(orderSql, [user_id, total_amount], (err, result) => {
@@ -116,8 +115,6 @@ app.post('/api/orders', (req, res) => {
 
         const orderId = result.insertId;
 
-        // 2. Prepare items for bulk insert into 'order_items'
-        // Format: [[order_id, product_id, quantity, price], [...]]
         const itemData = cartItems.map(item => [
             orderId, 
             item.id, 
