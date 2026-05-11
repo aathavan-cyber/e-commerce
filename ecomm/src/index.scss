@@ -1,0 +1,31 @@
+@use './styles/variables' as *;
+
+:root {
+  --primary-color: #{$primary-color};
+  --accent-color: #{$accent-color};
+}
+
+html, body {
+  background-color: #f4f7f6;
+  margin: 0;
+  padding: 0;
+  
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+  
+  &:hover {
+    background: #bbb;
+  }
+}

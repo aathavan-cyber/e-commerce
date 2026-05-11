@@ -1,0 +1,222 @@
+@use "sass:color";
+@use '../../styles/variables' as *;
+
+.checkout-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+// --- Success Card ---
+.success-card {
+  background: $white;
+  border: 1px solid #eee;
+  padding: 3rem 2rem;
+  border-radius: $border-radius;
+  text-align: center;
+  box-shadow: $shadow-md;
+
+  .success-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    color: $text-main;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 1rem;
+    color: $text-muted;
+    margin-bottom: 2rem;
+  }
+
+  .home-btn {
+    background: $accent-color;
+    color: $primary-color;
+    padding: 12px 30px;
+    border: none;
+    border-radius: $border-radius;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover {
+      background: color.adjust($accent-color, $lightness: -5%);
+      box-shadow: $shadow-md;
+    }
+  }
+}
+
+// --- Checkout Form ---
+.checkout-form {
+  background: $white;
+  padding: 2rem;
+  border-radius: $border-radius;
+  border: 1px solid #eee;
+  box-shadow: $shadow-sm;
+
+  h2 {
+    font-size: 1.5rem;
+    color: $text-main;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+  }
+}
+
+// --- Validation Error ---
+.validation-error {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  color: #856404;
+  padding: 12px 16px;
+  border-radius: $border-radius;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+// --- Order Summary ---
+.order-summary {
+  background: $bg-light;
+  padding: 1.5rem;
+  border-radius: $border-radius;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #eee;
+
+  span {
+    font-weight: 500;
+    color: $text-main;
+  }
+
+  strong {
+    font-size: 1.3rem;
+    color: #B12704;
+    font-weight: 700;
+  }
+}
+
+// --- Payment Method Selector ---
+.payment-selector {
+  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  label {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: $transition;
+    background: $white;
+
+    input {
+      margin-right: 0.8rem;
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+    }
+
+    &:hover {
+      border-color: $accent-color;
+      box-shadow: $shadow-sm;
+    }
+
+    &.active {
+      border-color: $accent-color;
+      background: #fffbf0;
+      font-weight: 500;
+    }
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// --- Input Group ---
+.input-group {
+  margin-bottom: 1.5rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 500;
+    color: $text-main;
+    font-size: 0.95rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    transition: $transition;
+    background: $white;
+
+    &:focus {
+      outline: none;
+      border-color: $accent-color;
+      box-shadow: 0 0 0 3px rgba($accent-color, 0.1);
+    }
+
+    &::placeholder {
+      color: $text-muted;
+    }
+  }
+}
+
+// --- Card Fields ---
+.card-fields {
+  background: $bg-light;
+  padding: 1.5rem;
+  border-radius: $border-radius;
+  border: 1px solid #eee;
+  margin-bottom: 1.5rem;
+}
+
+// --- Row Layout ---
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// --- Submit Button ---
+.pay-now-btn {
+  width: 100%;
+  padding: 12px;
+  background: $accent-color;
+  color: $primary-color;
+  border: 1px solid color.adjust($accent-color, $lightness: -10%);
+  border-radius: $border-radius;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    background: color.adjust($accent-color, $lightness: -5%);
+    box-shadow: $shadow-md;
+  }
+
+  &:active {
+    background: color.adjust($accent-color, $lightness: -10%);
+  }
+}
